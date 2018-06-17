@@ -19,6 +19,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import os
 
 #%% training data
 x_train = [1,2,3,4,5]
@@ -61,6 +62,7 @@ elapsed = time.time() - t
 print('Training time: {:.2} s'.format(elapsed))
 
 #%% Plot training overview
+os.makedirs('./training_plots_tensorflow')
 plt.figure(1)
 plt.plot(loss_ii)
 plt.title('Linear regression loss')

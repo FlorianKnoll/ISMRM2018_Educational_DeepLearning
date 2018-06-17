@@ -26,6 +26,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import os
 
 #%% training data
 x_train = torch.Tensor([1,2,3,4,5]).float()
@@ -73,6 +74,7 @@ elapsed = time.time() - t
 print('Training time: {:.2} s'.format(elapsed))
 
 #%% Plot training overview
+os.makedirs('./training_plots_pytorch')
 plt.figure(1)
 plt.plot(loss_ii)
 plt.title('Linear regression loss')

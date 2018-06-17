@@ -162,11 +162,12 @@ model.add(Dense(16, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
  
 #%% Plot model information
+os.makedirs('./models')
 model.summary()
 with open('./models/{}.txt'.format(model_name),'w') as fh:
     model.summary(print_fn=lambda x: fh.write(x + '\n'))
 
-plot_model(model, to_file='./models/{}.png'.format(model_name))
+#plot_model(model, to_file='./models/{}.png'.format(model_name))
 
 #%% Set up tensorboard
 tensorboard_graphdir = './graph_recon/{0}_{1}_{2}_{3}'.format(time.strftime('%Y-%m-%d_%H-%M-%S'),recon1,recon2,model_name)
@@ -204,6 +205,7 @@ testLabels_name = le.inverse_transform(testLabels)
 correctClassifications = np.transpose(testLabels==predictedLabels_round)
 
 #%% Plot convergence
+os.makedirs('./training_plots_tensorflow')
 if model_name == "CNN1layers_global_avg":
     # plot_label = "1 conv layer global average"
     plot_label_train = '1 conv layer global average: train={:.2}'.format(score_train[1])

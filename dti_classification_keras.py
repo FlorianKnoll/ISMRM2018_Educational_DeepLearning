@@ -21,7 +21,7 @@ import numpy as np
 np.random.seed(123)  # for reproducibility
 import pandas
 import time
-import os,os.path
+import os
 
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
@@ -131,11 +131,12 @@ model_name = 'dti_FC_{}layers_{}elements'.format(nLayers,nElements)
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 #%% Plot model information
+os.makedirs('./models')
 model.summary()
 with open('./models/{}.txt'.format(model_name),'w') as fh:
     model.summary(print_fn=lambda x: fh.write(x + '\n'))
     
-plot_model(model, to_file='./models/{}.png'.format(model_name))
+#plot_model(model, to_file='./models/{}.png'.format(model_name))
 
 #%% Set up tensorboard
 tensorboard_graphdir = './graph_dti/{0}_{1}'.format(time.strftime('%Y-%m-%d_%H-%M-%S'),model_name)
@@ -173,6 +174,7 @@ score_test = model.evaluate(x_test, y_test, verbose=1)
 print("Evaluation results test data: loss: {:.3} acc: {:.4}".format(score_test[0], score_test[1]))
 
 #%% Plot training overview
+os.makedirs('./training_plots_tensorflow')
 plot_label = 'FC {} layers {} elements: train/val/test={:.2}/{:.2}/{:.2}'.format(nLayers,nElements,score_train[1],score_val[1],score_test[1])
 N=5
 plt.figure(1)
@@ -184,4 +186,4 @@ plt.xlabel('epoch')
 plt.legend(['training', 'validation'], loc='lower right')
 plt.ylim(0.5,0.9)
 plt.show()
-#plt.savefig('./training_plots_tensorflow/{}_epochs{}.png'.format(model_name,training_epochs))
+plt.savefig('./training_plots_tensorflow/{}_epochs{}.png'.format(model_name,training_epochs))

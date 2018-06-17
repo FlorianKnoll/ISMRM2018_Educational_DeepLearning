@@ -21,7 +21,8 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-    
+import os
+
 #%% training data
 x_train = torch.Tensor([1,2,3,4,5]).float().to(torch.device("cuda"))
 y_train = torch.Tensor([3,5,7,9,11]).float().to(torch.device("cuda"))
@@ -68,13 +69,14 @@ elapsed = time.time() - t
 print('Training time: {:.2} s'.format(elapsed))
 
 #%% Plot training overview
+os.makedirs('./training_plots_pytorch')
 plt.figure(1)
 plt.plot(loss_ii)
 plt.title('Linear regression loss')
 plt.ylabel('SOS error (a.u.)')
 plt.xlabel('epoch')
 plt.show()
-#plt.savefig('./training_plots_pytorch/linear_regression_epochs{}.png'.format(training_epochs))
+plt.savefig('./training_plots_pytorch/linear_regression_epochs{}.png'.format(training_epochs))
 
 #%% Plot training overview
 plt.figure(2)
@@ -85,4 +87,4 @@ plt.ylabel('parameter values')
 plt.xlabel('epoch')
 plt.legend(['k', 'd'], loc='lower right')
 plt.show()
-#plt.savefig('./training_plots_pytorch/linear_regression_model_parameters_epochs{}.png'.format(training_epochs))
+plt.savefig('./training_plots_pytorch/linear_regression_model_parameters_epochs{}.png'.format(training_epochs))

@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.utils.data as data_utils
+import os
 torch.manual_seed(123)  # for reproducibility
 
 plt.close("all")
@@ -189,6 +190,7 @@ acc_test_final = (torch.sum(y_test==predicted).numpy() / nSamples_test)
 print('Evaluation results test data: {:.2}'.format(acc_test_final))
 
 #%% Plot training overview
+os.makedirs('./training_plots_pytorch')
 plot_label = 'FC {} layers {} elements: train/val/test={:.2}/{:.2}/{:.2}'.format(nLayers,nElements,acc_train_final,acc_val_final,acc_test_final)
 N=5
 plt.figure(1)
@@ -200,4 +202,4 @@ plt.xlabel('epoch')
 plt.legend(['training', 'validation'], loc='lower right')
 plt.ylim(0.5,0.9)
 plt.show()
-#plt.savefig('./training_plots_pytorch/{}_{}layers_{}elements_epochs{}.png'.format(model_name,nLayers,nElements,training_epochs))
+plt.savefig('./training_plots_pytorch/{}_{}layers_{}elements_epochs{}.png'.format(model_name,nLayers,nElements,training_epochs))
